@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Nation News | The Paper of Record for Dgireahia</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Inter:wght@300;400;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; background-color: #0a0a0c; color: #e2e8f0; }
+        .font-cinzel { font-family: 'Cinzel', serif; }
+        .gold-glow { text-shadow: 0 0 15px rgba(212, 175, 55, 0.4); }
+        .gold-border { border-color: rgba(212, 175, 55, 0.3); }
+        .bg-card { background: rgba(18, 18, 24, 0.85); backdrop-filter: blur(8px); }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between border-t-4 border-amber-500">
+
+    <!-- HEADER & MASTHEAD -->
+    <header class="border-b border-zinc-800 bg-zinc-950/90 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 py-6 text-center">
+            <p class="text-xs tracking-[0.3em] text-amber-500 font-semibold uppercase mb-1">Official Gazette of Dgireahia</p>
+            <h1 class="text-4xl md:text-6xl font-black font-cinzel tracking-wider text-zinc-100 uppercase">New Nation News</h1>
+            <p class="text-xs md:text-sm text-zinc-400 italic mt-2">"We report what the old world buries."</p>
+            
+            <!-- NAV -->
+            <nav class="flex flex-wrap justify-center gap-6 mt-6 text-xs uppercase tracking-widest text-zinc-400 font-medium">
+                <a href="#frontpage" class="hover:text-amber-400 transition">Front Page</a>
+                <a href="#countdown" class="hover:text-amber-400 transition">The Portal</a>
+                <a href="#districts" class="hover:text-amber-400 transition">The Districts</a>
+                <a href="#research" class="hover:text-amber-400 transition">The Ledger</a>
+                <a href="#posture" class="hover:text-amber-400 transition">The Posture</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 py-8 space-y-16 flex-grow">
+
+        <!-- COUNTDOWN SECTION (DELIVERABLE 3) -->
+        <section id="countdown" class="bg-card border gold-border rounded-xl p-8 text-center relative overflow-hidden shadow-2xl">
+            <div class="absolute -top-24 -left-24 w-48 h-48 bg-amber-500/10 rounded-full blur-3xl pointer-events-none"></div>
+            <p class="text-xs uppercase tracking-[0.4em] text-amber-500 font-bold mb-2">Target Launch Vector</p>
+            <h2 class="text-2xl md:text-3xl font-cinzel font-bold text-zinc-100 mb-6">October 31 — 11:11 PM</h2>
+            
+            <p class="text-sm text-zinc-400 max-w-2xl mx-auto mb-8 italic">
+                "The Kingdom does not run. It arrives. When the clock reaches zero, the portal opens. When the portal opens, the count begins. When the count begins, the old world will see how many of us there are."
+            </p>
+
+            <!-- CLOCK DISPLAY -->
+            <div id="clock-container" class="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-3xl mx-auto mb-8">
+                <div class="bg-zinc-900/90 border border-zinc-800 rounded-lg p-4">
+                    <span id="days" class="block text-4xl md:text-5xl font-black font-cinzel text-amber-400 gold-glow">00</span>
+                    <span class="text-[10px] uppercase tracking-widest text-zinc-500">Days</span>
+                </div>
+                <div class="bg-zinc-900/90 border border-zinc-800 rounded-lg p-4">
+                    <span id="hours" class="block text-4xl md:text-5xl font-black font-cinzel text-amber-400 gold-glow">00</span>
+                    <span class="text-[10px] uppercase tracking-widest text-zinc-500">Hours</span>
+                </div>
+                <div class="bg-zinc-900/90 border border-zinc-800 rounded-lg p-4">
+                    <span id="minutes" class="block text-4xl md:text-5xl font-black font-cinzel text-amber-400 gold-glow">00</span>
+                    <span class="text-[10px] uppercase tracking-widest text-zinc-500">Minutes</span>
+                </div>
+                <div class="bg-zinc-900/90 border border-zinc-800 rounded-lg p-4">
+                    <span id="seconds" class="block text-4xl md:text-5xl font-black font-cinzel text-amber-400 gold-glow">00</span>
+                    <span class="text-[10px] uppercase tracking-widest text-zinc-500">Seconds</span>
+                </div>
+            </div>
+
+            <!-- PORTAL STATE (Hidden until launch or test trigger) -->
+            <div id="portal-opened" class="hidden space-y-6 animate-fade-in">
+                <div class="p-4 bg-amber-500/10 border border-amber-500/40 rounded-lg">
+                    <h3 class="text-2xl font-cinzel text-amber-400 font-bold mb-2">THE PORTAL IS OPEN</h3>
+                    <p class="text-lg text-zinc-200 font-medium">Do you want something new?</p>
+                </div>
+                <button onclick="recordAffirmation()" class="bg-amber-500 hover:bg-amber-400 text-zinc-950 font-bold text-lg px-8 py-4 rounded-lg tracking-wider uppercase transition shadow-lg transform hover:scale-105">
+                    YES. COUNT ME IN.
+                </button>
+                <p id="affirmation-count" class="text-xs text-zinc-400 font-mono">Registry Count: 144,000 Affirmations Recorded</p>
+            </div>
+        </section>
+
+        <!-- FRONT PAGE LEAD ARTICLE -->
+        <section id="frontpage" class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <div class="lg:col-span-2 bg-card border border-zinc-800 rounded-xl p-8">
+                <span class="bg-amber-500/20 text-amber-400 text-[10px] font-bold px-2.5 py-1 rounded tracking-wider uppercase">Lead Dispatch</span>
+                <h2 class="text-2xl md:text-4xl font-cinzel font-bold text-zinc-100 mt-4 mb-4">The Eight Generals Break Silence: The Unburdening Begins</h2>
+                <p class="text-zinc-300 leading-relaxed text-sm md:text-base mb-4">
+                    From District 1 in North America to District 8 in the Australian Outback, reports confirm the simultaneous activation of the Seven-Day Protocol. Strategic advisors note that the old structural frameworks are yields—not collisions.
+                </p>
+                <p class="text-zinc-400 leading-relaxed text-xs md:text-sm">
+                    "We are not establishing a boundary; we are recognizing one that has always existed," stated General Marcus Reid during an unannounced address from the upper tower. The Registry of Consent is now active.
+                </p>
+            </div>
+
+            <!-- THE POSTURE SUMMARY -->
+            <div id="posture" class="bg-card border border-zinc-800 rounded-xl p-6 space-y-4">
+                <h3 class="text-lg font-cinzel font-bold text-amber-400 border-b border-zinc-800 pb-2">Kingdom Posture</h3>
+                <ul class="space-y-3 text-xs text-zinc-300">
+                    <li class="flex items-start gap-2"><span class="text-amber-500 font-bold">•</span> <strong>The Land Vision:</strong> Consecrated territory held in permanent stewardship.</li>
+                    <li class="flex items-start gap-2"><span class="text-amber-500 font-bold">•</span> <strong>The Food & Vouchers:</strong> Direct distribution outside legacy scarcity systems.</li>
+                    <li class="flex items-start gap-2"><span class="text-amber-500 font-bold">•</span> <strong>The Shepherds:</strong> Non-coercive leadership rooted in service.</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- DISTRICT STATUS GRID -->
+        <section id="districts" class="space-y-6">
+            <h2 class="text-2xl font-cinzel font-bold text-zinc-100 border-b border-zinc-800 pb-2">The Eight Land Districts</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                <script>
+                    const districts = [
+                        { id: 1, name: "North America", commander: "Marcus Reid", status: "Portal Event Online" },
+                        { id: 2, name: "Russia / Eurasia", commander: "Viktor Volkov", status: "In Transition" },
+                        { id: 3, name: "Japan / East Asia", commander: "Takeshi Morimoto", status: "In Transition" },
+                        { id: 4, name: "Africa", commander: "Amara Okonkwo", status: "Portal Event Online" },
+                        { id: 5, name: "France / W. Europe", commander: "Étienne Laurent", status: "In Transition" },
+                        { id: 6, name: "Israel / Mideast", commander: "Avi Ben-Ari", status: "Portal Event Online" },
+                        { id: 7, name: "Brazil / S. America", commander: "Carlos Mendes", status: "In Transition" },
+                        { id: 8, name: "Australia", commander: "Eleanor Hart", status: "Consecrated" }
+                    ];
+                    document.write(districts.map(d => `
+                        <div class="bg-card border border-zinc-800 p-4 rounded-lg space-y-2">
+                            <div class="flex justify-between items-center text-[10px] text-zinc-500 uppercase tracking-widest">
+                                <span>District 0${d.id}</span>
+                                <span class="${d.status === 'Consecrated' ? 'text-emerald-400' : 'text-amber-400'} font-bold">${d.status}</span>
+                            </div>
+                            <h4 class="font-cinzel text-base font-bold text-zinc-100">${d.name}</h4>
+                            <p class="text-xs text-zinc-400">Gen. ${d.commander}</p>
+                        </div>
+                    `).join(''));
+                </script>
+            </div>
+        </section>
+
+        <!-- RESEARCH LEDGER TABLE -->
+        <section id="research" class="space-y-6">
+            <h2 class="text-2xl font-cinzel font-bold text-zinc-100 border-b border-zinc-800 pb-2">The Ledger & Evidentiary Vault</h2>
+            <div class="bg-card border border-zinc-800 rounded-xl overflow-x-auto">
+                <table class="w-full text-left text-xs text-zinc-300">
+                    <thead class="bg-zinc-900/80 text-zinc-400 uppercase text-[10px] tracking-wider border-b border-zinc-800">
+                        <tr>
+                            <th class="p-4">Record ID</th>
+                            <th class="p-4">District / Region</th>
+                            <th class="p-4">Case Criteria</th>
+                            <th class="p-4">Status</th>
+                            <th class="p-4">Verification</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-zinc-800/50">
+                        <tr>
+                            <td class="p-4 font-mono text-amber-400">#DGI-2015-081</td>
+                            <td class="p-4">District 1 (US)</td>
+                            <td class="p-4">Suspicious Hanging / NDA Pattern</td>
+                            <td class="p-4 text-zinc-400">Indexed</td>
+                            <td class="p-4 text-emerald-400">Verified</td>
+                        </tr>
+                        <tr>
+                            <td class="p-4 font-mono text-amber-400">#DGI-2018-112</td>
+                            <td class="p-4">District 5 (France)</td>
+                            <td class="p-4">Financial Anomaly / Unburdening</td>
+                            <td class="p-4 text-zinc-400">Indexed</td>
+                            <td class="p-4 text-emerald-400">Verified</td>
+                        </tr>
+                        <tr>
+                            <td class="p-4 font-mono text-amber-400">#DGI-2023-004</td>
+                            <td class="p-4">District 3 (Japan)</td>
+                            <td class="p-4">Custodial Transfer Record</td>
+                            <td class="p-4 text-zinc-400">Pending Sync</td>
+                            <td class="p-4 text-amber-400">In Review</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="border-t border-zinc-800 bg-zinc-950 py-6 text-center text-xs text-zinc-500 font-mono">
+        <p>THE KINGDOM OF DGIREAHIA — ALL RIGHTS RESERVED UNDER COVENANT</p>
+        <p class="mt-1 text-[10px] text-zinc-600">Un Ya' U. Unm fre'he. Un bra'ta de'be'Dgi.</p>
+    </footer>
+
+    <!-- LAUNCH COUNTDOWN ENGINE JAVASCRIPT -->
+    <script>
+        // TARGET DATE: October 31, 23:11:00 Local Time
+        function getTargetDate() {
+            const now = new Date();
+            let target = new Date(now.getFullYear(), 9, 31, 23, 11, 0); // Month is 0-indexed (9 = Oct)
+            if (now > target) {
+                target = new Date(now.getFullYear() + 1, 9, 31, 23, 11, 0);
+            }
+            return target.getTime();
+        }
+
+        const targetTime = getTargetDate();
+
+        function updateClock() {
+            const now = new Date().getTime();
+            const difference = targetTime - now;
+
+            if (difference <= 0) {
+                document.getElementById('clock-container').classList.add('hidden');
+                document.getElementById('portal-opened').classList.remove('hidden');
+                return;
+            }
+
+            const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+            document.getElementById('days').innerText = String(days).padStart(2, '0');
+            document.getElementById('hours').innerText = String(hours).padStart(2, '0');
+            document.getElementById('minutes').innerText = String(minutes).padStart(2, '0');
+            document.getElementById('seconds').innerText = String(seconds).padStart(2, '0');
+        }
+
+        let count = 144000;
+        function recordAffirmation() {
+            count++;
+            document.getElementById('affirmation-count').innerText = `Registry Count: ${count.toLocaleString()} Affirmations Recorded`;
+            alert("Your affirmation has been recorded in the Registry of Consent. Welcome to the New Beginning.");
+        }
+
+        setInterval(updateClock, 1000);
+        updateClock();
+    </script>
+</body>
+</html>
