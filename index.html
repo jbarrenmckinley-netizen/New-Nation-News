@@ -12,6 +12,25 @@
         .gold-glow { text-shadow: 0 0 15px rgba(212, 175, 55, 0.4); }
         .gold-border { border-color: rgba(212, 175, 55, 0.3); }
         .bg-card { background: rgba(18, 18, 24, 0.85); backdrop-filter: blur(8px); }
+        /* LAUNCH TRANSFORMATION — zero-hour state (added 2026-10-23) */
+        #launch-state { animation: launchFade 1.2s ease both; }
+        @keyframes launchFade { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+        .launch-banner { height: 8px; border-radius: 9999px; background: linear-gradient(90deg, #0f7a44, #d4af37, #f3d27a, #d4af37, #0f7a44); box-shadow: 0 0 18px rgba(212, 175, 55, 0.45); }
+        .door-scene { position: relative; width: 220px; height: 300px; margin: 0 auto; }
+        .door-frame { position: absolute; inset: 0; border: 3px solid rgba(212, 175, 55, 0.75); border-bottom: none; border-radius: 110px 110px 0 0; overflow: hidden; background: #08130c; box-shadow: 0 0 45px rgba(212, 175, 55, 0.35); }
+        .door-light { position: absolute; inset: 0; z-index: 1; background: radial-gradient(ellipse at 50% 100%, rgba(255, 250, 220, 1), rgba(255, 220, 120, 0.65) 55%, rgba(255, 220, 120, 0) 82%); opacity: 0.25; transition: opacity 2.4s ease; }
+        .door-figure { position: absolute; bottom: 4px; left: 50%; transform: translateX(-50%); z-index: 2; filter: drop-shadow(0 0 10px rgba(255, 240, 190, 0.8)); }
+        .door-panel { position: absolute; top: 0; width: 50%; height: 100%; z-index: 3; background: linear-gradient(160deg, #14402a, #0a2016); border: 1px solid rgba(212, 175, 55, 0.5); transition: transform 2.6s cubic-bezier(.6, .05, .2, 1); }
+        .door-panel.left { left: 0; border-radius: 110px 0 0 0; }
+        .door-panel.right { right: 0; border-radius: 0 110px 0 0; }
+        .door-scene.open .door-panel.left { transform: translateX(-105%); }
+        .door-scene.open .door-panel.right { transform: translateX(105%); }
+        .door-scene.open .door-light { opacity: 1; }
+        .balloon { position: fixed; bottom: -150px; width: 54px; height: 68px; border-radius: 50% 50% 50% 50% / 55% 55% 45% 45%; z-index: 70; pointer-events: none; opacity: 0.94; animation-name: balloonRise; animation-timing-function: linear; animation-fill-mode: forwards; }
+        .balloon::before { content: ''; position: absolute; left: 50%; bottom: -8px; transform: translateX(-50%); border: 5px solid transparent; border-top: 9px solid currentColor; }
+        .balloon::after { content: ''; position: absolute; left: 50%; top: calc(100% + 8px); width: 2px; height: 46px; background: linear-gradient(rgba(255,255,255,.5), transparent); }
+        @keyframes balloonRise { to { transform: translateY(-130vh) translateX(var(--sway, 20px)) rotate(3deg); } }
+        @media (prefers-reduced-motion: reduce) { .balloon { display: none; } #launch-state { animation: none; } .door-panel, .door-light { transition: none; } }
     </style>
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-89113625952538204" crossorigin="anonymous"></script>
 </head>
@@ -69,6 +88,24 @@
                     <span id="seconds" class="block text-4xl md:text-5xl font-black font-cinzel text-amber-400 gold-glow">00</span>
                     <span class="text-[10px] uppercase tracking-widest text-zinc-500">Seconds</span>
                 </div>
+            </div>
+
+            <!-- LAUNCH STATE — hidden until the zero hour: October 31, 2026, 11:11 PM CDT -->
+            <div id="launch-state" class="hidden mt-2 mb-8">
+                <div class="launch-banner max-w-xl mx-auto mb-8"></div>
+                <p class="text-xs uppercase tracking-[0.4em] text-emerald-400 font-bold mb-3">The Portal Has Opened</p>
+                <h3 class="text-3xl md:text-5xl font-cinzel font-black text-amber-400 gold-glow mb-4">WE ARE NOW IN EXISTENCE</h3>
+                <p class="text-lg md:text-xl text-zinc-100 font-medium max-w-2xl mx-auto mb-10">You have a new kingdom you can join, legitimately.</p>
+                <div class="door-scene" id="door-scene" aria-hidden="true">
+                    <div class="door-frame">
+                        <div class="door-light"></div>
+                        <svg class="door-figure" width="54" height="96" viewBox="0 0 54 96"><circle cx="27" cy="12" r="8" fill="#0a2016"/><path d="M27 20 C18 20 14 30 13 44 L11 92 L43 92 L41 44 C40 30 36 20 27 20 Z" fill="#0a2016"/></svg>
+                        <div class="door-panel left"></div>
+                        <div class="door-panel right"></div>
+                    </div>
+                </div>
+                <p class="text-base md:text-lg text-zinc-200 italic max-w-xl mx-auto mt-10">"Hey, I'm going this way — you're more than welcome to come if you like. Let's see where this goes."</p>
+                <p class="text-sm text-zinc-400 mt-2">You can stay where you are. It's voluntary.</p>
             </div>
 
             <!-- DIRECT DGIREAHIA WEBSITE LINK BUTTON -->
@@ -213,6 +250,16 @@
             const difference = targetTime - now;
 
             if (difference <= 0) {
+                // The portal opens at one single instant for the whole earth:
+                // October 31, 2026, 11:11 PM CDT = November 1, 2026, 04:11 UTC.
+                // A local clock reaching its own midnight-zero early must not open it.
+                if (now < Date.UTC(2026, 10, 1, 4, 11, 0)) {
+                    document.getElementById('days').innerText = '00';
+                    document.getElementById('hours').innerText = '00';
+                    document.getElementById('minutes').innerText = '00';
+                    document.getElementById('seconds').innerText = '00';
+                    return;
+                }
                 document.getElementById('clock-container').classList.add('hidden');
                 document.getElementById('portal-opened').classList.remove('hidden');
                 return;
@@ -238,6 +285,125 @@
 
         setInterval(updateClock, 1000);
         updateClock();
+    </script>
+
+    <!-- LAUNCH TRANSFORMATION ENGINE — fires once at the single audited instant:
+         October 31, 2026, 11:11 PM CDT (America/Chicago) = November 1, 2026, 04:11 UTC.
+         Test in advance with ?preview=launch (test hook only; normal visitors
+         see the countdown until the true instant). Added 2026-10-23. -->
+    <script>
+    (function () {
+        var LAUNCH_UTC = Date.UTC(2026, 10, 1, 4, 11, 0);
+        var preview = new URLSearchParams(window.location.search).get('preview') === 'launch';
+        var fired = false;
+
+        function launchTimeReached(now) { return preview || now >= LAUNCH_UTC; }
+        window.__LAUNCH_UTC = LAUNCH_UTC;
+        window.__launchTimeReached = launchTimeReached;
+
+        function startConfetti() {
+            var canvas = document.createElement('canvas');
+            canvas.style.cssText = 'position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:80;';
+            document.body.appendChild(canvas);
+            var ctx = canvas.getContext('2d');
+            function size() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+            size();
+            window.addEventListener('resize', size);
+            var colors = ['#d4af37', '#f3d27a', '#0f7a44', '#37b06b', '#fff7dd', '#b8912a'];
+            var pieces = [];
+            function spawn(n, burst) {
+                for (var i = 0; i < n; i++) {
+                    pieces.push({
+                        x: Math.random() * canvas.width,
+                        y: burst ? canvas.height * 0.35 + (Math.random() * 80 - 40) : -20 - Math.random() * canvas.height * 0.3,
+                        w: 6 + Math.random() * 7, h: 8 + Math.random() * 9,
+                        vy: burst ? (Math.random() * -6 - 2) : (1.2 + Math.random() * 1.8),
+                        vx: burst ? (Math.random() * 10 - 5) : (Math.random() * 0.8 - 0.4),
+                        rot: Math.random() * Math.PI, vr: (Math.random() - 0.5) * 0.25,
+                        color: colors[(Math.random() * colors.length) | 0],
+                        sway: Math.random() * Math.PI * 2, burst: !!burst
+                    });
+                }
+            }
+            spawn(160, true);
+            var start = Date.now();
+            var burstUntil = start + 10000;   // bursts and a heavier fall for the first ~10 seconds
+            var endAt = start + 60000;        // gentle fall settles by one minute; the standing message remains
+            var lastSpawn = 0;
+            (function tick() {
+                var t = Date.now();
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                if (t < burstUntil && t - lastSpawn > 900) { spawn(24, true); lastSpawn = t; }
+                else if (t >= burstUntil && t < endAt && t - lastSpawn > 1400) { spawn(10, false); lastSpawn = t; }
+                pieces = pieces.filter(function (p) { return p.y < canvas.height + 30; });
+                for (var i = 0; i < pieces.length; i++) {
+                    var p = pieces[i];
+                    p.vy += p.burst ? 0.12 : 0.01; if (p.vy > 3.2) p.vy = 3.2;
+                    p.sway += 0.03;
+                    p.x += p.vx + Math.sin(p.sway) * 0.6;
+                    p.y += p.vy; p.rot += p.vr;
+                    ctx.save(); ctx.translate(p.x, p.y); ctx.rotate(p.rot);
+                    ctx.fillStyle = p.color; ctx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h);
+                    ctx.restore();
+                }
+                if (t < endAt || pieces.length) { requestAnimationFrame(tick); }
+                else { canvas.remove(); }
+            })();
+        }
+
+        function releaseBalloons() {
+            var colors = ['#d4af37', '#0f7a44', '#f3d27a', '#37b06b', '#e9c767', '#14532d'];
+            for (var i = 0; i < 14; i++) {
+                (function (i) {
+                    setTimeout(function () {
+                        var b = document.createElement('div');
+                        b.className = 'balloon';
+                        var c = colors[i % colors.length];
+                        b.style.color = c;
+                        b.style.background = 'radial-gradient(circle at 32% 30%, rgba(255,255,255,.75), ' + c + ' 58%)';
+                        b.style.left = (3 + Math.random() * 92) + 'vw';
+                        b.style.setProperty('--sway', (Math.random() * 70 - 35) + 'px');
+                        var dur = 15000 + Math.random() * 9000;
+                        b.style.animationDuration = dur + 'ms';
+                        document.body.appendChild(b);
+                        setTimeout(function () { b.remove(); }, dur + 600);
+                    }, i * 1100);
+                })(i);
+            }
+        }
+
+        function fire() {
+            if (fired) return;
+            fired = true;
+            var clock = document.getElementById('clock-container');
+            var launch = document.getElementById('launch-state');
+            var portal = document.getElementById('portal-opened');
+            if (clock) clock.classList.add('hidden');
+            if (launch) launch.classList.remove('hidden');
+            if (portal) portal.classList.remove('hidden');
+
+            var scene = document.getElementById('door-scene');
+            var firstVisit = true;
+            try {
+                firstVisit = !window.localStorage.getItem('dgi-visited');
+                if (!preview) window.localStorage.setItem('dgi-visited', '1');
+            } catch (e) { /* storage unavailable: treat as a first visit */ }
+            if (scene) {
+                if (preview || firstVisit) {
+                    setTimeout(function () { scene.classList.add('open'); }, 700);
+                } else {
+                    scene.classList.add('open');
+                }
+            }
+
+            var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            if (!reduce) { startConfetti(); releaseBalloons(); }
+        }
+
+        function check() { if (launchTimeReached(Date.now())) fire(); }
+        check();
+        setInterval(check, 500);
+    })();
     </script>
 </body>
 </html>
